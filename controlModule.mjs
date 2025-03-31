@@ -6,8 +6,6 @@ export const ControlModule = {
   nextStepButton: document.getElementById("next-step"),
 
   sequence1Index: 0,
-  sequence1IndexRemember: 0,
-  matchCount:0,
   sequence2Index: 0,
   isSequenceFound: false,
 
@@ -66,17 +64,11 @@ export const ControlModule = {
     if (this.sequence1Index < sequence1.length) {
       if (sequence1[this.sequence1Index] === sequence2[this.sequence2Index]) {
         // Characters match, move to the next character in both sequences
-        this.matchCount++;
         this.sequence1Index++;
         this.sequence2Index++;
 
-        if(this.matchCount == 1){
-          this.sequence1IndexRemember = this.sequence1Index;
-        }
-
         if (this.sequence2Index === sequence2.length) {
           this.isSequenceFound = true; // Mark the sequence as found
-          this.sequence1IndexRemember = 0;
           DisplayModule.updateResultMessage(
             `Sequence found at index ${
               this.sequence1Index - this.sequence2Index
@@ -88,9 +80,8 @@ export const ControlModule = {
       } else {
         if (this.sequence2Index != 0) {
           // reset sequence2 and go back to the beginning of sequence1
+          this.sequence1Index = (this.sequence1Index - this.sequence2Index) + 1;
           this.sequence2Index = 0; // Reset sequence2 to the beginning
-          this.sequence1Index = this.sequence1IndexRemember === 0 ? this.sequence1IndexRemember + 1 : this.sequence1IndexRemember;
-          this.matchCount = 0;
         } else {
           this.sequence1Index++;
         }
