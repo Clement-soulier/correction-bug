@@ -71,11 +71,13 @@ export const ControlModule = {
         this.sequence2Index++;
 
         if(this.matchCount == 1){
+          console.log("set du compteur remember" + this.sequence1Index);
           this.sequence1IndexRemember = this.sequence1Index;
         }
 
         if (this.sequence2Index === sequence2.length) {
           this.isSequenceFound = true; // Mark the sequence as found
+          this.sequence1IndexRemember = 0;
           DisplayModule.updateResultMessage(
             `Sequence found at index ${
               this.sequence1Index - this.sequence2Index
@@ -89,6 +91,7 @@ export const ControlModule = {
           // reset sequence2 and go back to the beginning of sequence1
           this.sequence2Index = 0; // Reset sequence2 to the beginning
           this.sequence1Index = this.sequence1IndexRemember;
+          console.log("reset de l'index index: " + this.sequence1IndexRemember);
           this.matchCount = 0;
         } else {
           this.sequence1Index++;
