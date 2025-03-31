@@ -71,7 +71,6 @@ export const ControlModule = {
         this.sequence2Index++;
 
         if(this.matchCount == 1){
-          console.log("set du compteur remember" + this.sequence1Index);
           this.sequence1IndexRemember = this.sequence1Index;
         }
 
@@ -90,8 +89,7 @@ export const ControlModule = {
         if (this.sequence2Index != 0) {
           // reset sequence2 and go back to the beginning of sequence1
           this.sequence2Index = 0; // Reset sequence2 to the beginning
-          this.sequence1Index = this.sequence1IndexRemember;
-          console.log("reset de l'index index: " + this.sequence1IndexRemember);
+          this.sequence1Index = this.sequence1IndexRemember === 0 ? this.sequence1IndexRemember + 1 : this.sequence1IndexRemember;
           this.matchCount = 0;
         } else {
           this.sequence1Index++;
